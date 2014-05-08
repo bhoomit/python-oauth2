@@ -3,7 +3,7 @@ import redis
 import json
 
 from oauth2.datatype import AccessToken, AuthorizationCode, Client
-from oauth2.error import AccessTokenNotFound, AuthCodeNotFound
+from oauth2.error import AccessTokenNotFound, AuthCodeNotFound, ClientNotFoundError
 from oauth2.store import AccessTokenStore, AuthCodeStore, ClientStore
 
 class TokenStore(AccessTokenStore, AuthCodeStore):
