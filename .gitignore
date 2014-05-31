@@ -18,4 +18,6 @@ cover/
 # Vagrant
 .vagrant/
 Berksfile.lock
+cookbooks/
+Gemfile.lock
 

@@ -50,18 +50,28 @@ Vagrant.configure("2") do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
   #
+  # config.vm.provision "shell", inline: "wget -O - https://www.opscode.com/chef/install.sh | sudo bash"
+
+  config.omnibus.chef_version = :latest
+
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
 
+    chef.add_recipe "apt"
+    chef.add_recipe "memcached"
     chef.add_recipe "mongodb::10gen_repo"
     chef.add_recipe "mongodb"
+    chef.add_recipe "mysql::server"
+    chef.add_recipe "redisio::install"
+    chef.add_recipe "redisio::enable"
 
     # You may also specify custom JSON attributes:
-    chef.json = {}
+    chef.json = {
+      'mysql' => {
+        'server_root_password' => ''
+      }
+    }
   end
 
   config.vm.provision "shell", path: "setup.sh"
-
-  # Use Berkshelf to install dependencies on cookbooks
-  # config.berkshelf.enabled = true
 end

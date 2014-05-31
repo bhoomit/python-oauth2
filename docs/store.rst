@@ -33,3 +33,6 @@ Implementations
    store/memcache.rst
    store/memory.rst
    store/mongodb.rst
+   store/redisdb.rst
+   store/dbapi.rst
+   store/mysql.rst

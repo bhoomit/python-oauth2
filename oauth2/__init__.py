@@ -102,7 +102,7 @@ from oauth2.tokengenerator import Uuid4
 from oauth2.grant import Scope, AuthorizationCodeGrant, ImplicitGrant, \
     ClientCredentialsGrant, ResourceOwnerGrant, RefreshToken
 
-VERSION = "0.7.0"
+VERSION = "0.8.0"
 
 
 class Provider(object):
@@ -182,8 +182,6 @@ class Provider(object):
             response.status_code = 400
             return response
         except OAuthInvalidError as err:
-            print(err.error)
-            print(err.explanation)
             response = self.response_class()
             return grant_type.handle_error(error=err, response=response)
         except UnsupportedGrantError:

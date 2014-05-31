@@ -80,7 +80,9 @@ class Request(object):
             post_params = parse_qs(content)
 
             for param, value in post_params.items():
-                self.post_params[param] = value[0]
+                decoded_param = param.decode('utf-8')
+                decoded_value = value[0].decode('utf-8')
+                self.post_params[decoded_param] = decoded_value
 
     def get_param(self, name, default=None):
         """
@@ -118,8 +120,8 @@ class Response(object):
     """
     def __init__(self):
         self.status_code = 200
-        self._headers    = {"Content-Type": "text/html"}
-        self.body        = ""
+        self._headers = {"Content-Type": "text/html"}
+        self.body = ""
 
     @property
     def headers(self):
@@ -166,6 +168,6 @@ class Wsgi(object):
         response = self.server.dispatch(request, environ)
 
         start_response(self.HTTP_CODES[response.status_code],
-                       response.headers.items())
+                       list(response.headers.items()))
 
-        return [response.body]
+        return [response.body.encode('utf-8')]
